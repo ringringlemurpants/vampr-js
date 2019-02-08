@@ -41,6 +41,7 @@ class Vampire {
       return false;
     }
   }
+
   /** Stretch **/
 
   // Returns the closest common ancestor of two vampires.
@@ -52,7 +53,6 @@ class Vampire {
 
   }
 }
-// const magnus = new Vampire("Magnus", 1500);
 
 
 module.exports = Vampire;
