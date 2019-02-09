@@ -47,65 +47,36 @@ class Vampire {
   // Returns the vampire object with that name, or null if no vampire exists with that name
   vampireWithName(name) {
     if (this.name === name) {
-      return this.name;
+      return this;
     }
-    for (const vamp of this.offspring){
-      vampireWithName(name);
+    for (let vamp of this.offspring) {
+      let vampire = vamp.vampireWithName(name);
+      if (vampire) {
+        return vampire;
+      }
     }
     return null;
-
-      // for (const vamp of this.offspring) {
-      //   // console.log("VAMP:", vamp);
-      //   // console.log("THIS.name : ", this.name);
-      //   if (vamp === this.name) {
-      //     // console.log("vamp @ this.name in if: ", this.name);
-      //     return this.vampireWithName(this.name);
-      //   }
-      //   return null;
-      // }
-
-      // this.offspring.forEach((name, i) => {
-    //   if (name === this.offspring[i]) {
-    //     // return true;
-    //     vampireWithName(name);
-    //   }
-    //   return false;
-    // });
-
-        // let allVamps = [];
-    // if (allVamps) {
-    //   if (this.name === name){
-    //     allVamps.push(this);
-    //     console.log("FIRST allvamps: ", allVamps);
-    //   }
-    //   for (const vamp of this.offspring){
-    //     const vampsWithMatchedName = vamp.vampireWithName(name);
-    //     allVamps = allVamps.concat(vampsWithMatchedName);
-    //     return allVamps;
-    //   }
-    // } //else {
-    //   return null;
-    // }
-      // return allVamps;
-
-      // for (const vamp of this.offspring){
-      //   console.log("first VAMP: ", vamp);
-      //   if (this.name === name) {
-      //     console.log("VAMP with name", vamp.vampireWithName(vamp[name]));
-      //     return vamp.vampireWithName(name);
-      //   }
-      //   return null;
-      // }
   }
 
   // Returns the total number of vampires that exist
   get totalDescendents() {
-    
+    let totalVamps = 0;
+    for (let vamp of this.offspring) {
+      totalVamps += vamp.totalDescendents +1;
+    }
+    return totalVamps;
   }
 
   // Returns an array of all the vampires that were converted after 1980
   get allMillennialVampires() {
-    
+    let millenialVamps = [];
+    if (this.yearConverted > 1980) {
+      millenialVamps.push(this);
+    }
+    for (let vamp of this.offspring) {
+      millenialVamps = millenialVamps.concat(vamp.allMillennialVampires);
+    }
+    return millenialVamps;
   }
 
   /** Stretch **/
